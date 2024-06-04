@@ -22,7 +22,7 @@ if query:
     results = df[df['SINGKATAN'].str.contains(query, case=False, na=False)]
     if not results.empty:
         results = results.reset_index(drop=True)  # Reset index and do not keep the old one
-        st.dataframe(results)  # Display without index
+        st.table(results)  # Use st.table() which supports text wrapping
     else:
         st.write("No results found")
 else:
@@ -42,6 +42,6 @@ if selected_letter:
     filtered_data = df[df['SINGKATAN'].str.startswith(selected_letter, na=False)]
     if not filtered_data.empty:
         filtered_data = filtered_data.reset_index(drop=True)  # Reset index and do not keep the old one
-        st.dataframe(filtered_data)  # Display without index
+        st.table(filtered_data)  # Use st.table() which supports text wrapping
     else:
         st.write(f"Tidak ada istilah yang diawali huruf {selected_letter}")
