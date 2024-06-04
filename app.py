@@ -25,31 +25,6 @@ if query:
     else:
         st.write("No results found")
 else:
-    # Display some instructions or general information
-    st.write("Masukan kata kunci di atas untuk mencari istilah")
-    
-
-import streamlit as st
-import pandas as pd
-import os
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(BASE_DIR, "Glossary_Compile.xlsx")
-df = pd.read_excel(file_path, header=2)
-
-st.title('Glossary Direktorat Jenderal Perbendaharaan')
-
-# Input for search query
-query = st.text_input("Masukan Kata Kunci:")
-
-# Filtering data based on search query
-if query:
-    results = df[df['SINGKATAN'].str.contains(query, case=False, na=False)]
-    if not results.empty:
-        st.dataframe(results)
-    else:
-        st.write("No results found")
-else:
     st.write("Masukan kata kunci di atas untuk mencari istilah")
 
 # Buttons for A-Z
