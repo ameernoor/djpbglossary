@@ -1,8 +1,10 @@
 import streamlit as st
 import pandas as pd
+import os
 
-# Load data
-df = pd.read_excel(r"E:\Gawean\OTL\Glossary\Glossary_Compile.xlsx", header = 2)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(BASE_DIR, "Glossary_Compile.xlsx")
+df = pd.read_excel(file_path, header=2)
 
 # Title for your app
 st.title('Glossary Istilah Direktorat Jenderal Perbendaharaan')
