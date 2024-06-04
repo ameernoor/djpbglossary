@@ -9,9 +9,9 @@ df = pd.read_excel(file_path, header=2)
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
 # Display logos at the top of the page
-logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.png')
-logo2 = os.path.join(BASE_DIR, 'images', 'djpb.png')
-logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
+logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.jpeg')
+logo2 = os.path.join(BASE_DIR, 'images', 'djpb.jpeg')
+logo3 = os.path.join(BASE_DIR, 'images', 'intress.jpeg')
 st.image([logo1, logo2, logo3], width=100)
 
 
