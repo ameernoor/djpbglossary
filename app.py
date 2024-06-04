@@ -1,36 +1,16 @@
 import streamlit as st
 import pandas as pd
 import os
-from PIL import Image
-
-def resize_image(input_path, output_path, height):
-    with Image.open(input_path) as img:
-        # Calculate the new width to maintain the aspect ratio
-        aspect_ratio = img.width / img.height
-        new_width = int(height * aspect_ratio)
-        new_img = img.resize((new_width, height))
-        new_img.save(output_path)
-
-# Specify the desired height
-desired_height = 100
-
-# Resize images
-resize_image(os.path.join(BASE_DIR, 'images', 'kemenkeu.jpeg'), os.path.join(BASE_DIR, 'images', 'kemenkeu_resized.jpeg'), desired_height)
-resize_image(os.path.join(BASE_DIR, 'images', 'djpb.jpeg'), os.path.join(BASE_DIR, 'images', 'djpb_resized.jpeg'), desired_height)
-resize_image(os.path.join(BASE_DIR, 'images', 'intress.jpeg'), os.path.join(BASE_DIR, 'images', 'intress_resized.jpeg'), desired_height)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "Glossary_Compile.xlsx")
 df = pd.read_excel(file_path, header=2)
 
-# Display logos with better alignment
-col1, col2, col3 = st.columns([1,1,1])
-with col1:
-    st.image(os.path.join(BASE_DIR, 'images', 'kemenkeu_resized.jpeg'), use_column_width=True)
-with col2:
-    st.image(os.path.join(BASE_DIR, 'images', 'djpb_resized.jpeg'), use_column_width=True)
-with col3:
-    st.image(os.path.join(BASE_DIR, 'images', 'intress_resized.jpeg'), use_column_width=True)
+# Display logos at the top of the page
+logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.jpeg')
+logo2 = os.path.join(BASE_DIR, 'images', 'djpb.jpeg')
+logo3 = os.path.join(BASE_DIR, 'images', 'intress.jpeg')
+st.image([logo1, logo2, logo3], width=100)
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
