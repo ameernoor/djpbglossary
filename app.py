@@ -21,7 +21,8 @@ query = st.text_input("Masukan Kata Kunci:", key="main_search")
 if query:
     results = df[df['SINGKATAN'].str.contains(query, case=False, na=False)]
     if not results.empty:
-        st.dataframe(results, index=False)  # Hide the index
+        results = results.reset_index(drop=True)  # Reset index and do not keep the old one
+        st.dataframe(results)  # Display without index
     else:
         st.write("No results found")
 else:
@@ -40,6 +41,7 @@ for i, letter in enumerate(letters):
 if selected_letter:
     filtered_data = df[df['SINGKATAN'].str.startswith(selected_letter, na=False)]
     if not filtered_data.empty:
-        st.dataframe(filtered_data, index=False)  # Hide the index
+        filtered_data = filtered_data.reset_index(drop=True)  # Reset index and do not keep the old one
+        st.dataframe(filtered_data)  # Display without index
     else:
         st.write(f"Tidak ada istilah yang diawali huruf {selected_letter}")
