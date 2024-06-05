@@ -19,12 +19,18 @@ query = st.text_input("Masukan Kata Kunci:", key="main_search")
 
 # Filtering data based on search query
 if query:
-    results = df[df['SINGKATAN'].str.contains(query, case=False, na=False)]
+    # Check if query is in any of the three columns
+    mask = (
+        df['SINGKATAN'].str.contains(query, case=False, na=False) |
+        df['ISTILAH'].str.contains(query, case=False, na=False) |
+        df['BAHASA INGGRIS'].str.contains(query, case=False, na=False)
+    )
+    results = df[mask]
     if not results.empty:
         results = results.reset_index(drop=True)  # Reset index and do not keep the old one
         st.table(results)  # Use st.table() which supports text wrapping
     else:
-        st.write("Kata-Kata Tidak Dapat Ditemukan ")
+        st.write("Kata-Kata Tidak Dapat Ditemukan")
 
 # Buttons for A-Z arranged horizontally
 st.write("## Daftar Istilah Berdasarkan Alfabet")
