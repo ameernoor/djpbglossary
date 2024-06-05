@@ -25,8 +25,6 @@ if query:
         st.table(results)  # Use st.table() which supports text wrapping
     else:
         st.write("No results found")
-else:
-    st.write("Masukan kata kunci di atas untuk mencari istilah")
 
 # Buttons for A-Z arranged horizontally
 st.write("## Daftar Istilah Berdasarkan Alfabet")
