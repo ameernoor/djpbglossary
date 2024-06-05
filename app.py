@@ -6,11 +6,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "glossary_for_apps.xlsx")
 df = pd.read_excel(file_path, header=0)
 
-# Check DataFrame columns (temporary debug line)
-st.write(df.columns)
-
 # Remove duplicates based on 'SINGKATAN' and 'ISTILAH' columns
-df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True, na_position='first')
+df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True')
 
 # Display logos at the top of the page
 logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.jpeg')
