@@ -24,7 +24,7 @@ if query:
         results = results.reset_index(drop=True)  # Reset index and do not keep the old one
         st.table(results)  # Use st.table() which supports text wrapping
     else:
-        st.write("No results found")
+        st.write("Kata-Kata Tidak Dapat Ditemukan ")
 
 # Buttons for A-Z arranged horizontally
 st.write("## Daftar Istilah Berdasarkan Alfabet")
