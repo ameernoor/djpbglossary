@@ -6,6 +6,13 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "glossary_for_apps.xlsx")
 df = pd.read_excel(file_path, header=0)
 
+# Remove duplicates based on 'SINGKATAN' and 'ISTILAH' columns
+# `subset` specifies the columns to look for duplicates
+# `keep='first'` means the first occurrence is kept whereas subsequent duplicates are removed
+# `inplace=True` modifies the DataFrame in place
+# `na_position='first'` ensures that NaN values are treated consistently; they are considered during the duplicate check
+df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True, na_position='first')
+
 # Display logos at the top of the page
 logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.jpeg')
 logo2 = os.path.join(BASE_DIR, 'images', 'djpb.jpeg')
