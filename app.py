@@ -13,17 +13,28 @@ logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.png')
 logo2 = os.path.join(BASE_DIR, 'images', 'djpb.png')
 logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
 
+# Inject custom CSS to create a spacer div
+st.markdown("""
+<style>
+.spacer {
+    height: 100px;  /* Adjust the height as needed */
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Create columns for the logos with specified widths
 col1, col2, col3 = st.columns([8, 3, 4])
 with col1:
-    st.write("\n\n\n\n\n\n\n\n\n\n\n\n")  # Adding space
+    # Add spacer using custom CSS
+    st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
     st.image(logo1, use_column_width=True)
 
 with col2:
     st.image(logo2, use_column_width=True)
 
 with col3:
-    st.write("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")  # Adding space
+    # Add larger spacer using custom CSS
+    st.markdown('<div class="spacer" style="height: 300px;"></div>', unsafe_allow_html=True)  # Adjust the height as needed
     st.image(logo3, use_column_width=True)
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
