@@ -17,7 +17,7 @@ logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
 col1, col2, col3 = st.columns(3)
 
 # Adding padding by using empty space above the images
-padding = 25  # Adjust the amount of padding as needed
+padding = 45  # Adjust the amount of padding as needed
 
 with col1:
     st.image(logo1, use_column_width=False)
