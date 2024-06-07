@@ -24,10 +24,10 @@ with col1:
     st.image(logo1, use_column_width=True)
 
 with col2:
+    st.write("\n" * padding)  # Adding space
     st.image(logo2, use_column_width=True)
 
 with col3:
-    st.write("\n" * padding)  # Adding space
     st.image(logo3, use_column_width=True)
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
