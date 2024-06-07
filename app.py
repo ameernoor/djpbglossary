@@ -14,10 +14,10 @@ logo2 = os.path.join(BASE_DIR, 'images', 'djpb.png')
 logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
 
 # Create columns for the logos with specified widths
-col1, col2, col3 = st.columns([6, 1, 1])
+col1, col2, col3 = st.columns([4, 1, 1])
 
 # Adding padding by using empty space above the images
-padding = 145  # Adjust the amount of padding as needed
+padding = 30  # Adjust the amount of padding as needed
 
 with col1:
     st.image(logo1, use_column_width=True)
