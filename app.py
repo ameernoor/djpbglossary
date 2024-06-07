@@ -9,11 +9,26 @@ df = pd.read_excel(file_path, header=0)
 # Remove duplicates based on 'SINGKATAN' and 'ISTILAH' columns
 df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True)
 
-# Display logos at the top of the page
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.png')
 logo2 = os.path.join(BASE_DIR, 'images', 'djpb.png')
 logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
-st.image([logo1, logo2, logo3])
+
+# Create columns for the logos
+col1, col2, col3 = st.columns(3)
+
+# Adding padding by using empty space above the images
+padding = 25  # Adjust the amount of padding as needed
+
+with col1:
+    st.image(logo1, use_column_width=True)
+
+with col2:
+    st.image(logo2, use_column_width=True)
+
+with col3:
+    st.write("\n" * padding)  # Adding space
+    st.image(logo3, use_column_width=True)
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
