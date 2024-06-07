@@ -20,6 +20,7 @@ col1, col2, col3 = st.columns(3)
 padding = 45  # Adjust the amount of padding as needed
 
 with col1:
+    st.write("\n" * padding)  # Adding space
     st.image(logo1, use_column_width=False)
 
 with col2:
