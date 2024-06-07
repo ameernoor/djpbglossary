@@ -35,7 +35,7 @@ with col2:
     st.image("djpb.png", use_column_width=True)
 
 with col3:
-    st.image("logo3.png", use_column_width=True)
+    st.image("intress.png", use_column_width=True)
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
