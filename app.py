@@ -34,7 +34,7 @@ with col2:
 
 with col3:
     # Add larger spacer using custom CSS
-    st.markdown('<div class="spacer" style="height: 60px;"></div>', unsafe_allow_html=True)  # Adjust the height as needed
+    st.markdown('<div class="spacer" style="height: 40px;"></div>', unsafe_allow_html=True)  # Adjust the height as needed
     st.image(logo3, use_column_width=True)
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
