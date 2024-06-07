@@ -21,7 +21,7 @@ padding1 = 70  # Adjust the amount of padding as needed
 padding2 = 150  # Adjust the amount of padding as needed
 
 with col1:
-    st.write("\n" * padding)  # Adding space
+    st.write("\n" * padding1)  # Adding space
     st.image(logo1, use_column_width=True)
 
 with col2:
