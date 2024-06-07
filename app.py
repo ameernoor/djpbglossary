@@ -17,17 +17,17 @@ logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
 col1, col2, col3 = st.columns(3)
 
 # Adding padding by using empty space above the images
-padding = 5  # Adjust the amount of padding as needed
+padding = 25  # Adjust the amount of padding as needed
 
 with col1:
-    st.image(logo1, use_column_width=True)
+    st.image(logo1, use_column_width=False)
 
 with col2:
-    st.image(logo2, use_column_width=True)
+    st.image(logo2, use_column_width=False)
 
 with col3:
     st.write("\n" * padding)  # Adding space
-    st.image(logo3, use_column_width=True)
+    st.image(logo3, use_column_width=False)
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
