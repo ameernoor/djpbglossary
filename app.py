@@ -29,13 +29,13 @@ col1, col2, col3 = st.columns(3)
 
 # Display images using the custom styles
 with col1:
-    st.image("kemenkeu.png", use_column_width=True)
+    st.image(logo1, use_column_width=True)
 
 with col2:
-    st.image("djpb.png", use_column_width=True)
+    st.image(logo2, use_column_width=True)
 
 with col3:
-    st.image("intress.png", use_column_width=True)
+    st.image(logo3, use_column_width=True)
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
