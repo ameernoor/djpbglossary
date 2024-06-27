@@ -14,6 +14,7 @@ df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True)
 logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.png')
 logo2 = os.path.join(BASE_DIR, 'images', 'djpb.png')
 logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
+logo4 = os.path.join(BASE_DIR, 'images', 'blank.png')
 
 # Inject custom CSS to create a spacer div
 st.markdown("""
@@ -25,7 +26,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Create columns for the logos with specified widths
-col1, col2, col3 = st.columns([0.8, 0.3, 0.4])
+col1, col2, col3, col4 = st.columns([0.8, 0.3, 0.4, 5])
 with col1:
     # Add spacer using custom CSS
     st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
@@ -38,6 +39,10 @@ with col3:
     # Add larger spacer using custom CSS
     st.markdown('<div class="spacer" style="height: 40px;"></div>', unsafe_allow_html=True)  # Adjust the height as needed
     st.image(logo3, use_column_width=True)
+
+with col4:
+    st.image(logo4, use_column_width=True)
+
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
