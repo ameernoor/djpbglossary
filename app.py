@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+from st_aggrid import AgGrid, GridOptionsBuilder
 
 st.set_page_config(layout="wide")
 
@@ -47,22 +48,19 @@ with col4:
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
 ## Input for search query with a unique key
-query = st.text_input("Masukan Kata Kunci:", key="main_search")
+search_option = ['SINGKATAN', 'ISTILAH', 'BAHASA INGGRIS']
 
-# Filtering data based on search query
 if query:
-    # Check if query is in any of the three columns
-    mask = (
-        df['SINGKATAN'].str.contains(query, case=False, na=False) |
-        df['ISTILAH'].str.contains(query, case=False, na=False) |
-        df['BAHASA INGGRIS'].str.contains(query, case=False, na=False)
-    )
+    mask = df[search_option].str.contains(query, case=False, na=False)
     results = df[mask]
     if not results.empty:
-        results = results.reset_index(drop=True)  # Reset index and do not keep the old one
-        st.table(results)  # Use st.table() which supports text wrapping
+        gb = GridOptionsBuilder.from_dataframe(results)
+        gb.configure_pagination(paginationAutoPageSize=True)
+        grid_options = gb.build()
+        AgGrid(results, gridOptions=grid_options, height=500, theme='streamlit')
     else:
         st.write("Kata-Kata Tidak Dapat Ditemukan")
+
 
 # Buttons for A-Z arranged horizontally
 st.write("## Daftar Istilah Berdasarkan Alfabet")
