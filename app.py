@@ -47,8 +47,6 @@ def generate_html_table(data):
         html += "<tr>"
         for col in data.columns:
             cell_value = row[col]
-            # Debugging: print the length of the cell content
-            print(f"Length of cell content for {col}: {len(cell_value)}")
             # Truncate the content for testing purposes if it is too long
             if len(cell_value) > 50:  # Adjust the length threshold as needed
                 cell_value = cell_value[:50] + "..."
