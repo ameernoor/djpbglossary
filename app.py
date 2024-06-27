@@ -25,7 +25,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Create columns for the logos with specified widths
-col1, col2, col3 = st.columns([0.8, 0.3, 0.4])
+col1, col2, col3 = st.columns([0.1, 0.1, 0.1])
 with col1:
     # Add spacer using custom CSS
     st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
