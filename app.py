@@ -32,6 +32,28 @@ def generate_html_table(data):
         .wide-column {
             max-width: 500px;  /* Adjust width for the URAIAN column */
         }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 500px;
+            background-color: #f9f9f9;
+            color: #000;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            top: 100%;
+            left: 50%;
+            margin-left: -250px;
+            word-wrap: break-word;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
     </style>
     <table>
     """
@@ -47,11 +69,9 @@ def generate_html_table(data):
         html += "<tr>"
         for col in data.columns:
             cell_value = row[col]
-            # Truncate the content for testing purposes if it is too long
-            if len(cell_value) > 50:  # Adjust the length threshold as needed
-                cell_value = cell_value[:50] + "..."
             if col == 'URAIAN':
-                html += f"<td class='wide-column'>{cell_value}</td>"
+                truncated_value = cell_value if len(cell_value) <= 500 else cell_value[:500] + "..."
+                html += f"<td class='wide-column'><div class='tooltip'>{truncated_value}<span class='tooltiptext'>{cell_value}</span></div></td>"
             else:
                 html += f"<td>{cell_value}</td>"
         html += "</tr>"
