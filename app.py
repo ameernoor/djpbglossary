@@ -9,8 +9,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "glossary_for_apps.xlsx")
 df = pd.read_excel(file_path, header=0)
 
-
-
 # Remove duplicates based on 'SINGKATAN' and 'ISTILAH' columns
 df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True)
 
@@ -19,13 +17,17 @@ def generate_html_table(data):
     # Start the table with styles
     html = """
     <style>
-        td, th {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
             border: 1px solid #ccc;
             padding: 8px;
             word-wrap: break-word;
         }
         .wide-column {
-            max-width: 300px;  /* Increased width for the URAIAN column */
+            max-width: 500px;  /* Adjust width for the URAIAN column */
         }
     </style>
     <table>
@@ -41,7 +43,6 @@ def generate_html_table(data):
     for _, row in data.iterrows():
         html += "<tr>"
         for col in data.columns:
-            # Apply a specific style to 'URAIAN' column
             if col == 'URAIAN':
                 html += f"<td class='wide-column'>{row[col]}</td>"
             else:
