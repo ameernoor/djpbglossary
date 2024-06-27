@@ -4,3 +4,8 @@ backgroundColor="#FFFFFF"
 secondaryBackgroundColor="#F0F2F6"
 textColor="#262730"
 font="sans serif"
+
+[browser]
+# Set the default page layout. Valid options are "centered" or "wide".
+# "wide" uses the full screen. "centered" adds margins on both sides.
+default = "wide"
