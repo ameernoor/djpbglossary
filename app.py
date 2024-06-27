@@ -25,7 +25,7 @@ def generate_html_table(data):
             word-wrap: break-word;
         }
         .wide-column {
-            max-width: 600px;  /* Increased width for the URAIAN column */
+            max-width: 300px;  /* Increased width for the URAIAN column */
         }
     </style>
     <table>
