@@ -9,13 +9,27 @@ df = pd.read_excel(file_path, header=0)
 # Remove duplicates based on 'SINGKATAN' and 'ISTILAH' columns
 df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True)
 
-# Define the function to add newlines
 def add_newlines(string, every=30):
-    if not string:  # Early return for empty strings
-        return ""
+    """
+    Inserts newline characters into a string every 'every' characters without breaking words,
+    and safely handles non-string inputs.
+    
+    Args:
+    string (str): The input string to process.
+    every (int): The interval length at which to insert newline characters, adjusting to avoid word breaks.
+    
+    Returns:
+    str: The modified string with added newline characters.
+    """
+    if pd.isna(string):  # Check if the input is NaN
+        return string  # Return NaN as is to preserve DataFrame integrity
+    elif not isinstance(string, str):  # Ensure the input is a string
+        string = str(string)  # Convert non-string input to string
+    
     words = string.split()
     new_string = ""
     current_line_length = 0
+    
     for word in words:
         if current_line_length + len(word) + 1 > every:
             new_string += '\n'
@@ -27,7 +41,13 @@ def add_newlines(string, every=30):
                 current_line_length += 1
             new_string += word
             current_line_length += len(word)
+    
     return new_string
+
+# Apply this function to the 'URAIAN' column within a conditional block
+if not filtered_data.empty:
+    filtered_data['URAIAN'] = filtered_data['URAIAN'].apply(lambda x: add_newlines(x))
+
 
 # Load images
 logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.png')
