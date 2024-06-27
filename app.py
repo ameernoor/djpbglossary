@@ -30,7 +30,7 @@ def generate_html_table(data):
             word-wrap: break-word;
         }
         .wide-column {
-            max-width: 50px;  /* Adjust width for the URAIAN column */
+            max-width: 500px;  /* Adjust width for the URAIAN column */
         }
     </style>
     <table>
@@ -50,8 +50,8 @@ def generate_html_table(data):
             # Debugging: print the length of the cell content
             print(f"Length of cell content for {col}: {len(cell_value)}")
             # Truncate the content for testing purposes if it is too long
-            if len(cell_value) > 500:  # Adjust the length threshold as needed
-                cell_value = cell_value[:500] + "..."
+            if len(cell_value) > 50:  # Adjust the length threshold as needed
+                cell_value = cell_value[:50] + "..."
             if col == 'URAIAN':
                 html += f"<td class='wide-column'>{cell_value}</td>"
             else:
