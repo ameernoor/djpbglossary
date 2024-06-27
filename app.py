@@ -12,13 +12,38 @@ df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True)
 
 # Function to generate an HTML table with text wrapping
 def generate_html_table(data):
-    # Start the table
-    html = "<style>td, th {border: 1px solid #ccc; padding: 8px; max-width: 200px; word-wrap: break-word;}</style><table>"
-    # Add header
-    html += "<tr>" + "".join(f"<th>{col}</th>" for col in data.columns) + "</tr>"
-    # Add rows
+    # Start the table with styles
+    html = """
+    <style>
+        td, th {
+            border: 1px solid #ccc;
+            padding: 8px;
+            word-wrap: break-word;
+        }
+        .wide-column {
+            max-width: 300px;  /* Increased width for the URAIAN column */
+        }
+    </style>
+    <table>
+    """
+
+    # Add header row
+    html += "<tr>"
+    for col in data.columns:
+        html += f"<th>{col}</th>"
+    html += "</tr>"
+
+    # Add data rows
     for _, row in data.iterrows():
-        html += "<tr>" + "".join(f"<td>{val}</td>" for val in row) + "</tr>"
+        html += "<tr>"
+        for col in data.columns:
+            # Apply a specific style to 'URAIAN' column
+            if col == 'URAIAN':
+                html += f"<td class='wide-column'>{row[col]}</td>"
+            else:
+                html += f"<td>{row[col]}</td>"
+        html += "</tr>"
+    
     html += "</table>"
     return html
 
