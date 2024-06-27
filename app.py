@@ -9,6 +9,45 @@ df = pd.read_excel(file_path, header=0)
 # Remove duplicates based on 'SINGKATAN' and 'ISTILAH' columns
 df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True)
 
+# Preprocess the Text to Add Manual Line Breaks
+def add_newlines(string, every=30):
+    """
+    Inserts newline characters into a string every 'every' characters without breaking words.
+    
+    Args:
+    string (str): The input string to process.
+    every (int): The interval length at which to insert newline characters, adjusting to avoid word breaks.
+    
+    Returns:
+    str: The modified string with added newline characters.
+    """
+    if not string:  # Early return for empty strings
+        return ""
+    
+    # Split the string into words
+    words = string.split()
+    new_string = ""
+    current_line_length = 0
+    
+    for word in words:
+        # Check if adding this word would exceed the length
+        if current_line_length + len(word) + 1 > every:  # +1 for space
+            new_string += '\n'  # Start a new line
+            new_string += word  # Add the word on the new line
+            current_line_length = len(word)  # Reset current line length to the length of the new word
+        else:
+            if current_line_length > 0:  # Not the first word on the line
+                new_string += ' '  # Add a space before the word
+                current_line_length += 1  # Account for the space
+            new_string += word
+            current_line_length += len(word)
+    
+    return new_string
+
+# Apply this function to the 'URAIAN' column
+filtered_data['URAIAN'] = filtered_data['URAIAN'].apply(add_newlines)
+
+
 logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.png')
 logo2 = os.path.join(BASE_DIR, 'images', 'djpb.png')
 logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
