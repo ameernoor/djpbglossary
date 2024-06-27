@@ -71,6 +71,6 @@ if selected_letter:
     filtered_data = df[df['SINGKATAN'].str.startswith(selected_letter, na=False)]
     if not filtered_data.empty:
         filtered_data = filtered_data.reset_index(drop=True)
-        st.dataframe(filtered_data, width = 1000, height=300)  # Adjust height as needed
+        st.dataframe(filtered_data, width = 10000, height=300)  # Adjust height as needed
     else:
         st.write(f"Tidak ada istilah yang diawali huruf {selected_letter}")
