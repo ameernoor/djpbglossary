@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 
+# Set up the environment
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "glossary_for_apps.xlsx")
 df = pd.read_excel(file_path, header=0)
@@ -9,22 +10,12 @@ df = pd.read_excel(file_path, header=0)
 # Remove duplicates based on 'SINGKATAN' and 'ISTILAH' columns
 df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True)
 
+# Function to add newlines
 def add_newlines(string, every=30):
-    """
-    Inserts newline characters into a string every 'every' characters without breaking words,
-    and safely handles non-string inputs.
-    
-    Args:
-    string (str): The input string to process.
-    every (int): The interval length at which to insert newline characters, adjusting to avoid word breaks.
-    
-    Returns:
-    str: The modified string with added newline characters.
-    """
     if pd.isna(string):  # Check if the input is NaN
-        return string  # Return NaN as is to preserve DataFrame integrity
-    elif not isinstance(string, str):  # Ensure the input is a string
-        string = str(string)  # Convert non-string input to string
+        return string
+    elif not isinstance(string, str):
+        string = str(string)
     
     words = string.split()
     new_string = ""
@@ -44,26 +35,18 @@ def add_newlines(string, every=30):
     
     return new_string
 
-# Apply this function to the 'URAIAN' column within a conditional block
-if not filtered_data.empty:
-    filtered_data['URAIAN'] = filtered_data['URAIAN'].apply(lambda x: add_newlines(x))
-
-
-# Load images
+# Load images and set up CSS
 logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.png')
 logo2 = os.path.join(BASE_DIR, 'images', 'djpb.png')
 logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
-
-# Inject custom CSS to create a spacer div
 st.markdown("""
 <style>
 .spacer {
-    height: 30px;  /* Adjust the height as needed */
+    height: 30px;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# Create columns for the logos with specified widths
 col1, col2, col3 = st.columns([8, 3, 4])
 with col1:
     st.image(logo1, use_column_width=True)
@@ -74,10 +57,10 @@ with col3:
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
-## Input for search query with a unique key
+# Handle input for search queries
 query = st.text_input("Masukan Kata Kunci:", key="main_search")
+results = pd.DataFrame()  # Initialize results as empty DataFrame
 
-# Filtering data based on search query
 if query:
     mask = (
         df['SINGKATAN'].str.contains(query, case=False, na=False) |
@@ -86,13 +69,13 @@ if query:
     )
     results = df[mask]
     if not results.empty:
-        results['URAIAN'] = results['URAIAN'].apply(add_newlines)  # Preprocess text to add line breaks
+        results['URAIAN'] = results['URAIAN'].apply(add_newlines)
         results = results.reset_index(drop=True)
         st.table(results)
     else:
         st.write("Kata-Kata Tidak Dapat Ditemukan")
 
-# Buttons for A-Z arranged horizontally
+# Handle alphabet buttons and display
 st.write("## Daftar Istilah Berdasarkan Alfabet")
 letters = [chr(i) for i in range(65, 91)]
 selected_letter = None
@@ -101,11 +84,10 @@ for i, letter in enumerate(letters):
     if cols[i].button(letter):
         selected_letter = letter
 
-# Displaying terms starting with selected letter
 if selected_letter:
     filtered_data = df[df['SINGKATAN'].str.startswith(selected_letter, na=False)]
     if not filtered_data.empty:
-        filtered_data['URAIAN'] = filtered_data['URAIAN'].apply(add_newlines)  # Apply function here after filtering
+        filtered_data['URAIAN'] = filtered_data['URAIAN'].apply(add_newlines)
         filtered_data = filtered_data.reset_index(drop=True)
         st.dataframe(filtered_data, height=300)
     else:
