@@ -1,11 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
-from st_aggrid import AgGrid, GridOptionsBuilder
 
-st.set_page_config(layout="wide")
-
-# Define the base directory and file path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "glossary_for_apps.xlsx")
 df = pd.read_excel(file_path, header=0)
@@ -13,27 +9,42 @@ df = pd.read_excel(file_path, header=0)
 # Remove duplicates based on 'SINGKATAN' and 'ISTILAH' columns
 df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True)
 
-# Load images
 logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.png')
 logo2 = os.path.join(BASE_DIR, 'images', 'djpb.png')
 logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
 
-# Display logos
+# Inject custom CSS to create a spacer div
+st.markdown("""
+<style>
+.spacer {
+    height: 30px;  /* Adjust the height as needed */
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Create columns for the logos with specified widths
 col1, col2, col3 = st.columns([8, 3, 4])
 with col1:
+    # Add spacer using custom CSS
+    st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
     st.image(logo1, use_column_width=True)
+
 with col2:
     st.image(logo2, use_column_width=True)
+
 with col3:
+    # Add larger spacer using custom CSS
+    st.markdown('<div class="spacer" style="height: 40px;"></div>', unsafe_allow_html=True)  # Adjust the height as needed
     st.image(logo3, use_column_width=True)
 
 st.title('Glossary Direktorat Jenderal Perbendaharaan')
 
-# Input for search query
+## Input for search query with a unique key
 query = st.text_input("Masukan Kata Kunci:", key="main_search")
 
 # Filtering data based on search query
 if query:
+    # Check if query is in any of the three columns
     mask = (
         df['SINGKATAN'].str.contains(query, case=False, na=False) |
         df['ISTILAH'].str.contains(query, case=False, na=False) |
@@ -41,18 +52,14 @@ if query:
     )
     results = df[mask]
     if not results.empty:
-        gb = GridOptionsBuilder.from_dataframe(results)
-        gb.configure_pagination()
-        gb.configure_default_column(wrapText=True, autoHeight=True)
-        gridOptions = gb.build()
-
-        st_aggrid = AgGrid(results, gridOptions=gridOptions, height=500, width='100%', theme='streamlit')
+        results = results.reset_index(drop=True)  # Reset index and do not keep the old one
+        st.table(results)  # Use st.table() which supports text wrapping
     else:
         st.write("Kata-Kata Tidak Dapat Ditemukan")
 
 # Buttons for A-Z arranged horizontally
 st.write("## Daftar Istilah Berdasarkan Alfabet")
-letters = [chr(i) for i in range(65, 91)]
+letters = [chr(i) for i in range(65, 91)]  # ASCII values for A-Z
 selected_letter = None
 cols = st.columns(len(letters))
 for i, letter in enumerate(letters):
@@ -63,11 +70,7 @@ for i, letter in enumerate(letters):
 if selected_letter:
     filtered_data = df[df['SINGKATAN'].str.startswith(selected_letter, na=False)]
     if not filtered_data.empty:
-        gb = GridOptionsBuilder.from_dataframe(filtered_data)
-        gb.configure_pagination()
-        gb.configure_default_column(wrapText=True, autoHeight=True)
-        gridOptions = gb.build()
-
-        st_aggrid = AgGrid(filtered_data, gridOptions=gridOptions, height=500, width='100%', theme='streamlit')
+        filtered_data = filtered_data.reset_index(drop=True)  # Reset index and do not keep the old one
+        st.table(filtered_data)  # Use st.table() which supports text wrapping
     else:
         st.write(f"Tidak ada istilah yang diawali huruf {selected_letter}")
