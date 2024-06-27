@@ -81,3 +81,7 @@ if selected_letter:
         st.table(filtered_data)  # Use st.table() which supports text wrapping
     else:
         st.write(f"Tidak ada istilah yang diawali huruf {selected_letter}")
+
+# Sidebar for additional options
+st.sidebar.header("Additional Options")
+st.sidebar.write("More features coming soon...")
