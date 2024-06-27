@@ -8,14 +8,14 @@ st.set_page_config(layout="wide")
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "glossary_for_apps.xlsx")
 df = pd.read_excel(file_path, header=0)
-# Replace NaN values with an empty string
-df = df.fillna('a')
 
 # Remove duplicates based on 'SINGKATAN' and 'ISTILAH' columns
 df.drop_duplicates(subset=['SINGKATAN', 'ISTILAH'], keep='first', inplace=True)
 
 # Function to generate an HTML table with text wrapping and handle NaN values
 def generate_html_table(data):
+    # Replace NaN values with an empty string
+    data = data.fillna('')
     
     # Start the table with styles
     html = """
@@ -30,7 +30,7 @@ def generate_html_table(data):
             word-wrap: break-word;
         }
         .wide-column {
-            max-width: 500px;  /* Adjust width for the URAIAN column */
+            max-width: 50px;  /* Adjust width for the URAIAN column */
         }
     </style>
     <table>
@@ -46,10 +46,16 @@ def generate_html_table(data):
     for _, row in data.iterrows():
         html += "<tr>"
         for col in data.columns:
+            cell_value = row[col]
+            # Debugging: print the length of the cell content
+            print(f"Length of cell content for {col}: {len(cell_value)}")
+            # Truncate the content for testing purposes if it is too long
+            if len(cell_value) > 500:  # Adjust the length threshold as needed
+                cell_value = cell_value[:500] + "..."
             if col == 'URAIAN':
-                html += f"<td class='wide-column'>{row[col]}</td>"
+                html += f"<td class='wide-column'>{cell_value}</td>"
             else:
-                html += f"<td>{row[col]}</td>"
+                html += f"<td>{cell_value}</td>"
         html += "</tr>"
     
     html += "</table>"
