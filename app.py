@@ -43,7 +43,7 @@ with col4:
 
 ## Set the Title
 st.title('📖 Glossary Direktorat Jenderal Perbendaharaan')
-
+st.info('pencarian istilah dapat berbasis kata kunci atau berdasarkan alfabet')
 
 # read the excel file
 file_path = os.path.join(BASE_DIR, "glossary_for_apps.xlsx")
