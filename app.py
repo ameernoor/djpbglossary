@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import os
 
-st.set_page_config(layout="wide")
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "glossary_for_apps.xlsx")
 df = pd.read_excel(file_path, header=0)
@@ -43,8 +41,10 @@ with col3:
 with col4:
     st.image(logo4, use_column_width=True)
 
-
-st.title('Glossary Direktorat Jenderal Perbendaharaan')
+# Page title
+st.set_page_config(page_title='Glossary DJPb', page_icon='📖')
+st.title('📖 Glossary Direktorat Jenderal Perbendaharaan')
+st.set_page_config(layout="wide")
 
 ## Input for search query with a unique key
 query = st.text_input("Masukan Kata Kunci:", key="main_search")
