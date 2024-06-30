@@ -5,6 +5,10 @@ import os
 # Set Page
 st.set_page_config(layout='wide', page_title='Glossary DJPb', page_icon='📖')
 
+## set directory for files
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+## load the images
 logo1 = os.path.join(BASE_DIR, 'images', 'kemenkeu.png')
 logo2 = os.path.join(BASE_DIR, 'images', 'djpb.png')
 logo3 = os.path.join(BASE_DIR, 'images', 'intress.png')
@@ -42,7 +46,6 @@ st.title('📖 Glossary Direktorat Jenderal Perbendaharaan')
 
 
 # read the excel file
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(BASE_DIR, "glossary_for_apps.xlsx")
 df = pd.read_excel(file_path, header=0)
 
