@@ -42,9 +42,8 @@ with col4:
     st.image(logo4, use_column_width=True)
 
 # Page title
-st.set_page_config(page_title='Glossary DJPb', page_icon='📖')
+st.set_page_config(layout='wide', page_title='Glossary DJPb', page_icon='📖')
 st.title('📖 Glossary Direktorat Jenderal Perbendaharaan')
-st.set_page_config(layout="wide")
 
 ## Input for search query with a unique key
 query = st.text_input("Masukan Kata Kunci:", key="main_search")
